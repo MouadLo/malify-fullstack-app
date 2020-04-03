@@ -10,8 +10,11 @@ function App() {
 				<p>
 					Edit <code>src/App.js</code> and save to reload.
 				</p>
-				<a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-					Welcom react
+				<a className="App-link" href="/auth/google" target="_blank" rel="noopener noreferrer">
+					Sign in With Google
+				</a>
+				<a className="App-link" href="/api/current_user" target="_blank" rel="noopener noreferrer">
+					Current User
 				</a>
 			</header>
 		</div>

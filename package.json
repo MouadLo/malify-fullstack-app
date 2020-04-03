@@ -13,8 +13,13 @@
 		"client": "npm run start --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client \" "
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": [
+		"react",
+		"express",
+		"mongoose",
+		"passport"
+	],
+	"author": "Mouad Lousimi",
 	"license": "ISC",
 	"dependencies": {
 		"concurrently": "^5.1.0",
