@@ -20,9 +20,12 @@ class Header extends Component {
 					<li key="1">
 						<StripeBilling />
 					</li>,
-					<li key="2">
+					<li key="2" style={{ margin: '0 10px' }}>
+						Credits: {this.props.auth.credits}
+					</li>,
+					<li key="3">
 						<a href="/api/logout">Logout</a>
-					</li>
+					</li>,
 				];
 		}
 	}
@@ -30,7 +33,7 @@ class Header extends Component {
 	render() {
 		return (
 			<nav>
-				<div className="nav-wrapper light-blue darken-4">
+				<div className="nav-wrapper  orange darken-3">
 					<Link
 						to={this.props.auth ? '/surveys' : '/'}
 						className="left brand-logo"
