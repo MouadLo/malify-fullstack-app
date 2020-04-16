@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
 
 import Header from './Header';
 import Landing from './Landing';
-
-const Dashboard = () => <h2>Dashboard</h2>;
-const SurveyNew = () => <h2>SurveyNew</h2>;
+import Dashboard from './Dashboard';
+import ProductNew from './products/ProductNew';
+import ProductShow from './products/ProductShow';
+import ProductEdit from './products/ProductEdit';
+import ProductDelete from './products/ProductDelete';
 
 class App extends Component {
 	componentDidMount() {
@@ -17,13 +19,18 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="container">
+			<div className="ui container">
 				<BrowserRouter>
 					<div>
 						<Header />
-						<Route exact path="/" component={Landing} />
-						<Route exact path="/surveys" component={Dashboard} />
-						<Route path="/surveys/new" component={SurveyNew} />
+						<Switch>
+							<Route path="/products/new" component={ProductNew} />
+							<Route path="/products/edit/:_id" component={ProductEdit} />
+							<Route path="/products/delete/:_id" component={ProductDelete} />
+							<Route exact path="/products/:_id" component={ProductShow} />
+							<Route path="/products" component={Dashboard} />
+							<Route path="/" component={Landing} />
+						</Switch>
 					</div>
 				</BrowserRouter>
 			</div>
