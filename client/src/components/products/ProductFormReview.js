@@ -7,7 +7,10 @@ import { withRouter } from 'react-router-dom';
 import * as actions from '../../actions';
 
 class ProductFormReview extends Component {
-	state = { file: null };
+	state = {
+		file: null,
+		loading: false,
+	};
 
 	renderFields() {
 		const { formValues } = this.props;
@@ -65,20 +68,28 @@ class ProductFormReview extends Component {
 					<i className="left arrow icon"></i>
 					Back
 				</button>
-				<button className="ui labeled icon positive  button right">
-					Save
-					<i className="save icon"></i>
-				</button>
+				{!this.state.loading ? (
+					<button className="ui labeled icon positive  button right">
+						Save
+						<i className="save icon"></i>
+					</button>
+				) : (
+					<button className="ui labeled icon positive  button right">
+						Loading
+						<i className="save icon"></i>
+					</button>
+				)}
 			</div>
 		);
 	}
 
-	onSubmit = (event) => {
+	onSubmit = async (event) => {
 		event.preventDefault();
-
+		this.setState({ loading: true });
 		const { submitProduct, history, formValues } = this.props;
 
-		this.props.onSubmit(formValues, this.state.file, history);
+		await this.props.onSubmit(formValues, this.state.file, history);
+		this.setState({ loading: false });
 	};
 
 	onFileChange(event) {
