@@ -14,10 +14,9 @@ module.exports = (app) => {
 		res.send(product);
 	});
 
-	app.get('/api/products', async (req, res) => {
-		// const products = await Product.find({ _user: req.user.id });
-		const products = await Product.find();
-		res.send(products);
+	app.get('/api/products', requireLogin, async (req, res) => {
+		const products = await Product.find({ _user: req.user.id });
+		res.status(200).send(products);
 	});
 
 	app.post('/api/product', requireLogin, async (req, res) => {

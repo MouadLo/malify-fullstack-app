@@ -9,8 +9,9 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./models/Survey');
 require('./models/Product');
-require('./services/passport');
 
+require('./services/passport');
+require('./services/cache');
 mongoose.connect(keys.mongoUri);
 
 const app = express();
