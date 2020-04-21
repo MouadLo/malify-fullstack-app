@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
-//const cleanCache = require('../middlewares/cleanCache');
+const cleanCache = require('../middlewares/cleanCache');
 
 const Product = mongoose.model('Product');
 
@@ -15,11 +15,13 @@ module.exports = (app) => {
 	});
 
 	app.get('/api/products', requireLogin, async (req, res) => {
-		const products = await Product.find({ _user: req.user.id });
+		const products = await Product.find({ _user: req.user.id }).cache({
+			key: req.user.id,
+		});
 		res.status(200).send(products);
 	});
 
-	app.post('/api/product', requireLogin, async (req, res) => {
+	app.post('/api/product', requireLogin, cleanCache, async (req, res) => {
 		const { title, collections, vendor, price, tva, barcode } = req.body;
 
 		const newProduct = {
@@ -41,7 +43,7 @@ module.exports = (app) => {
 		}
 	});
 
-	app.put('/api/product/:id', async (req, res) => {
+	app.put('/api/product/:id', requireLogin, cleanCache, async (req, res) => {
 		let id = req.params.id;
 		const { title, collections, vendor, price, tva, barcode } = req.body;
 		try {
@@ -57,9 +59,10 @@ module.exports = (app) => {
 		} catch (err) {
 			res.send(400, err);
 		}
+		clearHash(req.user.id);
 	});
 
-	app.delete('/api/product/:id', async (req, res) => {
+	app.delete('/api/product/:id', requireLogin, cleanCache, async (req, res) => {
 		let id = req.params.id;
 
 		try {
@@ -71,5 +74,6 @@ module.exports = (app) => {
 		} catch (err) {
 			res.send(400, err);
 		}
+		clearHash(req.user.id);
 	});
 };
