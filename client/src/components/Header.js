@@ -17,10 +17,18 @@ class Header extends Component {
 				);
 			default:
 				return [
-					<StripeBilling key="1" className="item" />,
-					<div key="2" style={{ margin: '0 10px' }} className="item">
-						Credits: {this.props.auth.credits}
+					<Link key="0" className="item" key="3" to="/products">
+						Products
+					</Link>,
+					<div
+						key="2"
+						style={{ margin: '0 10px' }}
+						className="orange item active"
+					>
+						{this.props.auth.displayName} Your Credits:{' '}
+						{this.props.auth.credits}
 					</div>,
+					<StripeBilling key="1" className="item" />,
 					<a key="4" className="ui item" href="/api/logout">
 						Logout
 					</a>,
@@ -30,13 +38,14 @@ class Header extends Component {
 
 	render() {
 		return (
-			<div className="ui blue pointing menu">
-				<Link to={this.props.auth ? '/products' : '/'} className="item">
-					Home
+			<div className="ui blue inverted menu">
+				<Link
+					to={this.props.auth ? '/products' : '/'}
+					className="item active brand-logo"
+				>
+					Emaily
 				</Link>
-				<Link className="item" key="3" to="/products">
-					Products
-				</Link>
+
 				<div className="right menu">{this.renderContent()}</div>
 			</div>
 		);
