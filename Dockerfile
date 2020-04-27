@@ -30,8 +30,7 @@ USER pptruser
 
 COPY package.json .
 RUN npm install
-ENV NODE_ENV="production"
 COPY . .
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
 
